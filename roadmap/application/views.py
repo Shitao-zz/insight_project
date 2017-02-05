@@ -27,18 +27,18 @@ UPLOAD_FOLDER = '/home/ubuntu/roadmap/application/resume'
 ALLOWED_EXTENSIONS = set(['pdf'])
 
 # create a database and query from it
-dbname = 'xxx'
-username = 'xxx'
-pswd = 'xxx'
-engine = create_engine('postgresql://%s:%s@us-east-1.rds.amazonaws.com:5432/%s'%(username,pswd,dbname))
+dbname = 'courses_db'
+username = 'swang'
+pswd = '1118'
+engine = create_engine('postgresql://%s:%s@localhost/%s'%(username,pswd,dbname))
 if not database_exists(engine.url):
     create_database(engine.url)
 
-course_data = pd.DataFrame.from_csv('/home/ubuntu/roadmap/application/app_data/udemy_courses_cleaned.csv')
+course_data = pd.DataFrame.from_csv('./app_data/udemy_courses_cleaned.csv')
 course_data.to_sql('course_data_table', engine, if_exists='replace')
 ## connect:
 con = None
-con = psycopg2.connect(database = dbname, user = username, host='us-east-1.rds.amazonaws.com', port = 5432,password=pswd)
+con = psycopg2.connect(database = dbname, user = username, host='localhost',password=pswd)
    
 def convert(fname, pages=None):
     if not pages:
@@ -82,12 +82,12 @@ def plotpage():
     f.save(f.filename)
     print f.filename
     existSkill = convert(f.filename)
-    topSkill = pd.read_csv('/home/ubuntu/roadmap/application/app_data/top_skills.csv').drop('Unnamed: 0',axis=1)
+    topSkill = pd.read_csv('./app_data/top_skills.csv').drop('Unnamed: 0',axis=1)
     for term in existSkill:
         topSkill = topSkill[topSkill.skill != term]
 	topSkill = topSkill.reset_index().drop('index',axis=1)
 
-    model = gensim.models.Word2Vec.load('/home/ubuntu/roadmap/application/app_data/W2Vmodel')
+    model = gensim.models.Word2Vec.load('./app_data/W2Vmodel')
     topSkill['similarity'] = 0.0
     for i in range(topSkill.shape[0]):
         topSkill.similarity[i] =  model.n_similarity([topSkill.skill[i]],existSkill)
