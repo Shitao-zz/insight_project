@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<title>Resume Analysis</title>
+
+    <!-- Mobile Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap core CSS -->
+    <link href="../static/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link href="../static/fonts/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <!-- Plugins -->
+    <link href="../static/css/animations.css" rel="stylesheet">
+    <!-- Worthy core CSS file -->
+    <link href="../static/css/style.css" rel="stylesheet">
+    <!-- Bokeh CSS -->
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.css" rel="stylesheet" type="text/css">
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+    <script src="../static/js/liquidFillGauge.js" language="JavaScript"></script>
+    <style>
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+    </style>
+
+</head>
+
+<body class="no-trans">
+    <!-- scrollToTop -->
+    <div class="scrollToTop"><i class="icon-up-open-big"></i></div>
+
+    <!-- header start -->
+    <header class="header fixed navbar navbar-fixed-top">
+       	<div class="container">
+	    <div class="row">
+	        
+		<div id="top" class="col-md-4">
+		<!-- header-left start -->
+		    <div class="header-left clearfix">
+		        <div class="site-name-and-slogan smooth-scroll">
+		            <div class="site-name"><a href="#banner">Resume Analysis</a></div>
+		            <div class="site-slogan">Bridge the gap to your dream job</div>
+		        </div>
+		    </div>
+		</div>
+		
+	    </div>
+	</div>
+
+    </header>
+    <!-- header end -->
+
+      <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+	<div class="container">
+       
+       {{ script | safe }}
+       {{ div | safe }}   
+
+    <h1>Top missing skills</h1>
+
+
+    <svg id="fillgauge1" width="97%" height="250";"></svg>
+    <svg id="fillgauge2" width="19%" height="200";"></svg>
+    <svg id="fillgauge3" width="19%" height="200";"></svg>
+    <svg id="fillgauge4" width="19%" height="200";"></svg>
+    <svg id="fillgauge5" width="19%" height="200";"></svg>
+    <svg id="fillgauge6" width="19%" height="200";"></svg>
+    <script language="JavaScript">
+    var gauge1 = loadLiquidFillGauge("fillgauge1", {{percent[0]}}, "{{skillKey[0]}}");
+    var config1 = liquidFillGaugeDefaultSettings();
+    config1.circleColor = "#FF7777";
+    config1.textColor = "#FF4444";
+    config1.waveTextColor = "#FFAAAA";
+    config1.waveColor = "#FFDDDD";
+    config1.circleThickness = 0.2;
+    config1.textVertPosition = 0.2;
+    config1.waveAnimateTime = 1000;
+    var gauge2= loadLiquidFillGauge("fillgauge2", {{percent[1]}}, "{{skillKey[1]}}", config1);
+    </script>
+
+
+
+       
+           <div class="row-md-12"><h1>Course recommendations:</h1></div> 
+	       
+	   <div class="row object-non-visible" data-animation-effect="fadeIn"> 
+		<div class="col-md-3">
+		<br>
+		<img src="{{figs[0]}}" width="250" height="150"style="opacity: 1">
+		</div>
+		<div class="col-md-7">
+		    <h2 class="text text-left" align="left">{{title[0]}}</h2>
+		    <p class="lead text-left" align="left">
+		        {{summary[0]}}
+		    </p>
+		</div>
+       	    </div>
+	    
+	    <div class="row object-non-visible" data-animation-effect="fadeIn">	    
+		<div class="col-md-3">
+		    <br>
+	            <img src="{{figs[1]}}" width="250" height="150"style="opacity: 1">
+		</div>
+		<div class="col-md-7">
+		    <h2 class="text text-left" align="left">{{title[1]}}</h2>
+		    <p class="lead text-left" align="left">
+		        {{summary[1]}}
+		    </p>
+		</div>
+	    </div>
+
+             <div class="row object-non-visible" data-animation-effect="fadeIn">	    
+		<div class="col-md-3">
+		    <br>
+	            <img src="{{figs[2]}}" width="250" height="150"style="opacity: 1">
+		</div>
+		<div class="col-md-7">
+		    <h2 class="text text-left" align="left">{{title[2]}}</h2>
+		    <p class="lead text-left" align="left">
+		        {{summary[2]}}
+		    </p>
+		</div>
+	    </div>
+
+            <div class="row object-non-visible" data-animation-effect="fadeIn">	    
+		<div class="col-md-3">
+		    <br>
+	            <img src="{{figs[3]}}" width="250" height="150"style="opacity: 1">
+		</div>
+		<div class="col-md-7">
+		    <h2 class="text text-left" align="left">{{title[3]}}</h2>
+		    <p class="lead text-left" align="left">
+		        {{summary[3]}}
+		    </p>
+		</div>
+	    </div>
+
+           <div class="row object-non-visible" data-animation-effect="fadeIn">	    
+		<div class="col-md-3">
+		    <br>
+	            <img src="{{figs[4]}}" width="250" height="150"style="opacity: 1">
+		</div>
+		<div class="col-md-7">
+		    <h2 class="text text-left" align="left">{{title[4]}}</h2>
+		    <p class="lead text-left" align="left">
+		        {{summary[4]}}
+		    </p>
+		</div>
+	    </div>
+
+           <div class="row object-non-visible" data-animation-effect="fadeIn">	    
+		<div class="col-md-3">
+		    <br>
+	            <img src="{{figs[4]}}" width="250" height="150"style="opacity: 1">
+		</div>
+		<div class="col-md-7">
+		    <h2 class="text text-left" align="left">{{title[5]}}</h2>
+		    <p class="lead text-left" align="left">
+		        {{summary[5]}}
+		    </p>
+		</div>
+	    </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- footer start -->
+    <div class="subfooter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 centered">
+                    <p>Get in touch: </p>
+                    <h2>
+                        <a href="mailto:swang@rsmas.miami.edu"><i class="fa fa-envelope"></i></a>
+                        <a target="_blank" href="http://shitao.github.io/"><i class="fa fa-globe"></i></a>
+                        <a target="_blank" href="http://www.linkedin.com/in/shitaowang"><i class="fa fa-linkedin"></i></a>
+ 		        <a target="_blank" href="https://github.com/shitao"><i class="fa fa-github"></i></a>
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- JavaScript files placed at the end of the document so the pages load faster-->
+    <!-- Jquery and Bootstap core js files -->
+    <script type="text/javascript" src="../static/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
+    
+    <!-- Modernizr javascript -->
+    <script type="text/javascript" src="../static/plugins/modernizr.js"></script>
+    
+    <!-- Isotope javascript -->
+    <script type="text/javascript" src="../static/plugins/isotope/isotope.pkgd.min.js"></script>
+    
+    <!-- Backstretch javascript -->
+    <script type="text/javascript" src="../static/plugins/jquery.backstretch.min.js"></script>
+    
+    <!-- Appear javascript -->
+    <script type="text/javascript" src="../static/plugins/jquery.appear.js"></script>
+    
+    <!-- Initialization of Plugins -->
+    <script type="text/javascript" src="../static/js/template.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="../static/js/custom.js"></script>
+
+    <script type="text/javascript" src="../static/js/liquidFillGauge.js"></script>
+
+</body>
+
+</html>
