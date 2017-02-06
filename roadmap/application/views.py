@@ -89,8 +89,13 @@ def plotpage():
     if f and allowed_file(f.filename):
         f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
         filepath = os.path.join(app.config['UPLOAD_FOLDER'],f.filename)
+    else:
+        return render_template('index_error.html')
+    
     existSkill = convert(filepath)
     os.remove(filepath)
+    if existSkill == []:
+        render_template('index_error.html')
 
     topSkill = pd.read_csv('./app_data/top_skills.csv').drop('Unnamed: 0',axis=1)
     for term in existSkill:
