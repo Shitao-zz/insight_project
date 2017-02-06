@@ -1,3 +1,4 @@
+import os
 from application import app
 from flask import Flask,render_template, request, redirect
 import requests
@@ -23,8 +24,10 @@ databases=['sql','nosql','hbase','cassandra','mongodb','mysql','mssql','postgres
 overall_dict = program_languages + analysis_software + bigdata_tool + databases
 
 
-UPLOAD_FOLDER = '/home/ubuntu/roadmap/application/resume'
+UPLOAD_FOLDER = '/Users/swang/Desktop/insight_project/roadmap/application/resume'
 ALLOWED_EXTENSIONS = set(['pdf'])
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 # create a database and query from it
 dbname = 'courses_db'
@@ -39,7 +42,11 @@ course_data.to_sql('course_data_table', engine, if_exists='replace')
 ## connect:
 con = None
 con = psycopg2.connect(database = dbname, user = username, host='localhost',password=pswd)
-   
+
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+       
 def convert(fname, pages=None):
     if not pages:
         pagenums = set()
@@ -66,8 +73,6 @@ def convert(fname, pages=None):
     
     return text
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 @app.route('/')
 def main():
     return redirect('/index')
@@ -78,10 +83,15 @@ def index():
 
 @app.route('/plotpage', methods=['POST'])
 def plotpage():
+
     f = request.files['file']
-    f.save(f.filename)
-    print f.filename
-    existSkill = convert(f.filename)
+    
+    if f and allowed_file(f.filename):
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'],f.filename))
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'],f.filename)
+    existSkill = convert(filepath)
+    os.remove(filepath)
+
     topSkill = pd.read_csv('./app_data/top_skills.csv').drop('Unnamed: 0',axis=1)
     for term in existSkill:
         topSkill = topSkill[topSkill.skill != term]
@@ -110,7 +120,7 @@ def plotpage():
         title_list.append(courseSelect['title'])
 	fig_list.append(courseSelect['image'])
 	summary_list.append(courseSelect['headline'])
-        url_list.append(courseSelect['homepage'])
+        url_list.append('http://'+courseSelect['homepage'])
 
     for i in range(len(courseKey1)):
         sql_query = "SELECT * FROM course_data_table WHERE (title LIKE '% "+courseKey1[i]+" %') ORDER BY num_reviews DESC LIMIT 5;"
@@ -118,7 +128,7 @@ def plotpage():
         title_list1.append(courseSelect['title'])
 	fig_list1.append(courseSelect['image'])
 	summary_list1.append(courseSelect['headline'])
-        url_list1.append(courseSelect['homepage'])
+        url_list1.append('http://'+courseSelect['homepage'])
 
 
     percentTF = list(topSkill.iloc[:6].sort_values('count',ascending=False)['count']*100/4446)
@@ -127,6 +137,6 @@ def plotpage():
 
     skillKey = map(lambda x:x.upper(), courseKey)
     skillKey1 = map(lambda x:x.upper(), courseKey1)
-
+    
     return render_template('plot.html', title = title_list, figs = fig_list, summary = summary_list, skillKey = skillKey, coursepage = url_list, title1 = title_list1, figs1 = fig_list1, summary1 = summary_list1, skillKey1 = skillKey1, coursepage1 = url_list1, percent = percentTF, percentS = percentSM)
 

@@ -134,7 +134,7 @@ blockquote {
 .banner-image {
 	background-image:url("../images/data1.jpg")
 	vertical-align: middle;
-	max-height:20px;
+	max-height:17px;
 	min-height: 100%;
 	width: 100%;
 }
@@ -168,7 +168,7 @@ blockquote {
 ----------------------------------------------------------------------------- */
 .jumbotron {
   background-image:url('../images/data1.jpg');
-  height: 800px;
+  height: 600px;
   background-repeat: no-repeat;
   background-size: cover;
 }
