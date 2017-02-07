@@ -1,7 +1,7 @@
 # Insight Data Science Fellowship Project
 http://insightdatascience.com/
 # 
-[RoadMap: Personalized online courses towards a data science career](https://www.datascienceroadmap.com)
+[RoadMap: Personalized online courses towards a data science career](www.datascienceroadmap.com)
 
 ### Install
 
