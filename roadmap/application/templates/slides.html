@@ -5,7 +5,7 @@
 <!--<![endif]-->
 <head>
 <meta charset="utf-8">
-<title>Road Map</title>
+<title>Resume Analysis</title>
 
     <!-- Mobile Meta -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +17,16 @@
     <link href="../static/css/animations.css" rel="stylesheet">
     <!-- Worthy core CSS file -->
     <link href="../static/css/style.css" rel="stylesheet">
+    <!-- Bokeh CSS -->
+    <link href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.css" rel="stylesheet" type="text/css">
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.2.min.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js" language="JavaScript"></script>
+    <script src="../static/js/liquidFillGauge.js" language="JavaScript"></script>
+    <style>
+        .liquidFillGaugeText { font-family: Helvetica; font-weight: bold; }
+    </style>
+
 </head>
 
 <body class="no-trans">
@@ -32,44 +42,10 @@
 		<!-- header-left start -->
 		    <div class="header-left clearfix">
 		        <div class="site-name-and-slogan smooth-scroll">
-		            <div class="site-name"><a href="#banner">Road Map</a></div>
-		            <div class="site-slogan">The road map to your dream job</div>
+		            <div class="site-name"><a href="#banner">Resume Analysis</a></div>
+		            <div class="site-slogan">Bridge the gap to your dream job</div>
 		        </div>
 		    </div>
-		</div>
-	
-		<div class="col-md-8">
-		<!-- header-right start -->
-		    <div class="header-right clearfix">
-		        <div class="main-navigation animated">
-		            <!-- navbar start -->
-		            <nav class="navbar navbar-default" role="navigation">
-		                <div class="container-fluid">
-		                    <!-- Toggle get grouped for better mobile display -->
-		            	    <div class="navbar-header">
-		                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
-		                            <span class="sr-only">Toggle navigation</span>
-		                            <span class="icon-bar"></span>
-		                    	    <span class="icon-bar"></span>
-	                            	    <span class="icon-bar"></span>
-		                	</button>
-		            	    </div>
-
-		            	    <!-- Collect the nav links, forms, and other content for toggling -->
-	                    	    <div class="collapse navbar-collapse scrollspy smooth-scroll" id="navbar-collapse-1">
-		                	<ul class="nav navbar-nav navbar-right">
-		                    	    <li class="active"><a href="#top">Home</a></li>
-		                    	    <li><a href="https://github.com/Shitao/insight_project">How it works</a></li>
-		                            <li><a href="#disqus_thread">Comments</a></li>
-					    <li><a href="/slides">Slides</a></li>
-		                	</ul>
-		            	    </div>
-         			</div>
-			    </nav>
-			    <!-- navbar end -->
-			</div>
-		    </div>
-		    <!-- header-right end -->
 		</div>
 		
 	    </div>
@@ -77,35 +53,19 @@
 
     </header>
     <!-- header end -->
-        
-    <!-- banner start -->
-    <div class="jumbotron">
-        <div class="container">
-	            <h1>Please upload your resume (PDF format)</h1>
-	
-	                <form action="/plotpage" method="POST" enctype="multipart/form-data">
-			    <p><input type="file" name="file"/> <input type = "submit"/></p>
-			</form>
-	</div>
-    </div>
-      
-       
-    <div class="container">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-        var disqus_shortname = 'shitao';
-	    
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-       (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-       })();
-    </script>
-    </div>
+    <div class="section clearfix object-non-visible" data-animation-effect="fadeIn">
+	<div class="container">
 
+    <br>
+    <form id='homebutton' method='post' action='index' >
+       <p>
+          <input type='submit' value='Back' />
+       </p>
+    </form>
 
+    <h1>Top Missing Skills - Term Frequency Metric</h1>
+
+        <script async class="speakerdeck-embed" data-id="d7fe7880d52248469117dc02a2b153cb" data-ratio="1.77777777777778" src="//speakerdeck.com/assets/embed.js"></script>
 
     <!-- footer start -->
     <div class="subfooter">
@@ -123,8 +83,9 @@
             </div>
         </div>
     </div>
-    
-    
+
+
+
     <!-- JavaScript files placed at the end of the document so the pages load faster-->
     <!-- Jquery and Bootstap core js files -->
     <script type="text/javascript" src="../static/plugins/jquery.min.js"></script>
@@ -147,6 +108,8 @@
     
     <!-- Custom Scripts -->
     <script type="text/javascript" src="../static/js/custom.js"></script>
+
+    <script type="text/javascript" src="../static/js/liquidFillGauge.js"></script>
 
 </body>
 

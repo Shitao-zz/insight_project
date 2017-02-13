@@ -81,6 +81,11 @@ def main():
 def index():
     return render_template('index.html')
 
+@app.route('/slides', methods=['GET','POST'])
+def slides():
+    return render_template('slides.html')
+
+
 @app.route('/plotpage', methods=['POST'])
 def plotpage():
 
@@ -94,6 +99,61 @@ def plotpage():
     
     existSkill = convert(filepath)
     os.remove(filepath)
+    if existSkill == []:
+        render_template('index_error.html')
+
+    topSkill = pd.read_csv('./app_data/top_skills.csv').drop('Unnamed: 0',axis=1)
+    for term in existSkill:
+        topSkill = topSkill[topSkill.skill != term]
+	topSkill = topSkill.reset_index().drop('index',axis=1)
+
+    model = gensim.models.Word2Vec.load('./app_data/W2Vmodel')
+    topSkill['similarity'] = 0.0
+    for i in range(topSkill.shape[0]):
+        topSkill.similarity[i] =  model.n_similarity([topSkill.skill[i]],existSkill)
+
+    courseKey = list(topSkill.iloc[:6]['skill'])
+    courseKey1 = list(topSkill.iloc[:6].sort_values('similarity')['skill'])
+ 
+    title_list = []
+    fig_list = []
+    summary_list = []
+    url_list = []
+
+    title_list1 = []
+    fig_list1 = []
+    summary_list1 = []
+    url_list1 = []
+    for i in range(len(courseKey)):
+        sql_query = "SELECT * FROM course_data_table WHERE (title LIKE '% "+courseKey[i]+" %') ORDER BY num_reviews DESC LIMIT 5;"
+	courseSelect = pd.read_sql_query(sql_query,con).iloc[0]
+        title_list.append(courseSelect['title'])
+	fig_list.append(courseSelect['image'])
+	summary_list.append(courseSelect['headline'])
+        url_list.append('http://'+courseSelect['homepage'])
+
+    for i in range(len(courseKey1)):
+        sql_query = "SELECT * FROM course_data_table WHERE (title LIKE '% "+courseKey1[i]+" %') ORDER BY num_reviews DESC LIMIT 5;"
+	courseSelect = pd.read_sql_query(sql_query,con).iloc[0]
+        title_list1.append(courseSelect['title'])
+	fig_list1.append(courseSelect['image'])
+	summary_list1.append(courseSelect['headline'])
+        url_list1.append('http://'+courseSelect['homepage'])
+
+
+    percentTF = list(topSkill.iloc[:6].sort_values('count',ascending=False)['count']*100/4446)
+    percentSM = list(topSkill.iloc[:6].sort_values('similarity')['similarity']*100)
+    #script, div = make_figure(topSkill)
+
+    skillKey = map(lambda x:x.upper(), courseKey)
+    skillKey1 = map(lambda x:x.upper(), courseKey1)
+    
+    return render_template('plot.html', title = title_list, figs = fig_list, summary = summary_list, skillKey = skillKey, coursepage = url_list, title1 = title_list1, figs1 = fig_list1, summary1 = summary_list1, skillKey1 = skillKey1, coursepage1 = url_list1, percent = percentTF, percentS = percentSM)
+
+@app.route('/plotpage1', methods=['POST'])
+def plotpage1():
+
+    existSkill = convert('./app_data/john_resume.pdf')
     if existSkill == []:
         render_template('index_error.html')
 
